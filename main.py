@@ -8,7 +8,7 @@ import os
 import yaml
 from collections import OrderedDict
 
-# from dataloader import *
+from dataloader import *
 from model import *
 from train import *
 from utils import *
