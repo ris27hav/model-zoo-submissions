@@ -21,25 +21,28 @@ class Brain_data(Dataset):
         self.images = sorted(self.images)
         self.masks = sorted(self.masks)
 
+        
+    def __len__(self):
+        return len(self.images)
+    
+    
+    def __getitem__(self,idx):
+        image = self.images[idx]
+        mask = self.masks[idx]
+        image = io.imread(image)
+        image = transform.resize(image,(256,256))
+        image = image / 255
+        image = image.transpose((2, 0, 1))
+        
+        mask = io.imread(mask)
+        mask = transform.resize(mask,(256,256))
+        mask = mask / 255
+        mask = np.expand_dims(mask,axis=-1).transpose((2, 0, 1))
 
-    # def __getitem__(self,idx):
-    #     image = self.images[idx]
-    #     mask = self.masks[idx]
-    #     image = io.imread(image)
-    #     image = transform.resize(image,(256,256))
-    #     image = image / 255
-    #     image = image.transpose((2, 0, 1))
+        image = torch.from_numpy(image)
+        mask = torch.from_numpy(mask)
         
-        
-    #     mask = io.imread(mask)
-    #     mask = transform.resize(mask,(256,256))
-    #     mask = mask / 255
-    #     mask = np.expand_dims(mask,axis=-1).transpose((2, 0, 1))
-
-    #     image = torch.from_numpy(image)
-    #     mask = torch.from_numpy(mask)
-        
-    #     return (image,mask)
+        return (image,mask)
 
 
 def get_loader(batch_size, num_workers):
