@@ -72,7 +72,6 @@ if config['loss'] == 'BCEWithLogitsLoss':
     criterion = nn.BCEWithLogitsLoss()
 else:
     criterion = BCEDiceLoss
-criterion = criterion.to(config['device'])
 
 # optimizer
 if config['optimizer'] == 'Adam':
