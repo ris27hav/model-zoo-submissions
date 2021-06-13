@@ -56,7 +56,7 @@ def parse_args():
     return config
 
 
-config = parse_args
+config = parse_args()
 
 os.makedirs('models/', exist_ok=True)
 with open('models/config.yml', 'w') as f:
